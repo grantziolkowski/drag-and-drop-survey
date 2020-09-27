@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+
 import SurveyForm from './surveys/SurveyForm';
 import SurveyList from './surveys/SurveyList';
+import surveyReducer from './reducers/SurveyReducer';
 import './App.css';
 
 const questions = [
@@ -19,13 +21,17 @@ const questions = [
 ];
 
 function App() {
+  const [data, dispatch] = useReducer(
+    surveyReducer, { questions }
+  );
+
   return (
     <div className="App">
       <header>
         Survey
       </header>
       <SurveyForm />
-      <SurveyList questions={questions} />
+      <SurveyList data={data} dispatch={dispatch} />
     </div>
   );
 }

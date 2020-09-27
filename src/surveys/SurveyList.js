@@ -1,7 +1,9 @@
 import React from 'react';
 import './SurveyList.css';
 
-const SurveyList = ({ questions }) => {
+const SurveyList = ({ data, dispatch }) => {
+  const { questions } = data;
+
   const onDragEnter = e => {
     console.log('drag enter');
     e.preventDefault();
@@ -24,6 +26,14 @@ const SurveyList = ({ questions }) => {
 
     e.preventDefault();
     e.stopPropagation();
+
+    const question = {
+      id: 4,
+      body: 'foo'
+    };
+
+    dispatch({ type: 'REORDER', question });
+    e.dataTransfer.clearData();
   };
   const onDrag = e => {
     console.log('grabbed', e);
