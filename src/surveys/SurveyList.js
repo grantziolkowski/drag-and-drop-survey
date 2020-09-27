@@ -27,16 +27,16 @@ const SurveyList = ({ data, dispatch }) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const question = {
-      id: 4,
-      body: 'foo'
-    };
-
-    dispatch({ type: 'REORDER', question });
+    const fromIndex = e.dataTransfer.getData("text");
+    const toIndex = parseInt(e.target.id.replace('question-item-', ''));
+    dispatch({ type: 'REORDER', payload: { fromIndex, toIndex } });
     e.dataTransfer.clearData();
   };
   const onDrag = e => {
-    console.log('grabbed', e);
+    e.persist()
+    const index = parseInt(e.target.id.replace('question-item-', ''));
+
+    e.dataTransfer.setData("text", index);
   };
 
   return (
@@ -47,11 +47,12 @@ const SurveyList = ({ data, dispatch }) => {
       onDragLeave={e => onDragLeave(e)}>
       <p>Drag survey questions up or down to reorder them.</p>
       <ol className="questions">
-        {questions.map(q => {
+        {questions.map((q, i) => {
           return (
             <li key={q.id}
+              id={`question-item-${i}`}
               draggable="true"
-              onDrag={e => onDrag(e)}>
+              onDragStart={e => onDrag(e)}>
                 {q.body}
             </li>
           )
