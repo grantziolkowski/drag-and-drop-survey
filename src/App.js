@@ -5,20 +5,7 @@ import SurveyList from './surveys/SurveyList';
 import surveyReducer from './reducers/SurveyReducer';
 import './App.css';
 
-const questions = [
-  {
-    id: 1,
-    body: 'Is there enough water content in the soil?',
-  },
-  {
-    id: 2,
-    body: 'Is there a freshwater source nearby?',
-  },
-  {
-    id: 3,
-    body: 'Are there currently any crops planted here?',
-  }
-];
+const questions = [];
 
 function App() {
   const [data, dispatch] = useReducer(
@@ -26,11 +13,16 @@ function App() {
   );
 
   return (
-    <div className="App">
-      <header>
-        Survey
-      </header>
+    <div className="app">
       <SurveyForm />
+      <div className="instructions">
+        <div>
+          Enter JSON data for your survey's questions. Once entered, you can drag and drop a question below to move
+           it up or down in order.
+        </div>
+        <div>You will be able to edit your array of survey questions at any time. Each question data must have a "body" field of text.</div>
+      </div>
+
       <SurveyList data={data} dispatch={dispatch} />
     </div>
   );

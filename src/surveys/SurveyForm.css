@@ -1,0 +1,13 @@
+.textarea {
+  font-family: 'Courier';
+  color: #fff;
+  background-color: rgb(40, 44, 52);
+  min-height: 200px;
+  min-width: 400px;
+  border-radius: 2%;
+  padding: 4px;
+}
+
+.is-error {
+  color: #ddb592;
+}

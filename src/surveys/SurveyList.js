@@ -45,7 +45,6 @@ const SurveyList = ({ data, dispatch }) => {
       onDragOver={e => onDragOver(e)}
       onDragEnter={e => onDragEnter(e)}
       onDragLeave={e => onDragLeave(e)}>
-      <p>Drag survey questions up or down to reorder them.</p>
       <ol className="questions">
         {questions.map((q, i) => {
           return (

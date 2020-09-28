@@ -1,6 +1,12 @@
 .questions li {
-  color: #07F;
-  padding: 3px;
-  text-align: left;
-  font-weight: bold;
+  background: #BAFFF4;
+  color: #000;
+  box-shadow: 0 0 5px #000;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  width: 300px;
+  cursor: -webkit-grab;
 }

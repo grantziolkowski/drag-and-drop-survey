@@ -1,6 +1,7 @@
 import React from 'react';
 import validate from './SurveyFormValidationRules';
 import useForm from '../forms/useForm';
+import './SurveyForm.css';
 
 const SurveyForm = () => {
   const {
@@ -15,22 +16,22 @@ const SurveyForm = () => {
   }
 
   return (
-    <div className="form-container">
+    <div className='form-container'>
       <form onSubmit={handleSubmit} noValidate>
-        <div className="control">
-        <input
-            className={`input ${errors.questions && 'is-error'}`}
-            type="textarea"
-            name="questions"
+        <div className='control'>
+        <textarea
+            className={`textarea ${errors.questions && 'is-error'}`}
+            name='questions'
             onChange={handleChange}
-            value={values.questions || ''}
+            value={values.questions || []}
+            placeholder='[{ "body": "Edit here with the body of your question text", "identifier": "Any optional identifier" }]'
             required
           />
           {errors.questions && (
-            <p className="is-error">{errors.questions}</p>
+            <p className='is-error'>{errors.questions}</p>
           )}
         </div>
-        <button type="submit" className="button">Submit Questions</button>
+        <button type='submit' className='button'>Submit Questions</button>
       </form>
     </div>
   )
