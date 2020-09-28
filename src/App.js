@@ -17,14 +17,11 @@ function App() {
 
   return (
     <div className='app'>
-      <SurveyForm data={data} dispatch={dispatch} />
       <div className='instructions'>
-        <div>
-          Enter JSON data for your survey's questions. Once entered, you can drag and drop a question below to move
-           it up or down in order.
-        </div>
-        <div>You will be able to edit your array of survey questions at any time. Each question data must have a 'body' field of text.</div>
+        Enter and edit JSON data for your survey's questions. Once entered, you can drag and drop a question below to move
+          it up or down in order.
       </div>
+      <SurveyForm data={data} dispatch={dispatch} />
 
       <SurveyList data={data} dispatch={dispatch} />
     </div>

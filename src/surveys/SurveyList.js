@@ -4,48 +4,36 @@ import './SurveyList.css';
 const SurveyList = ({ data, dispatch }) => {
   const { questions } = data;
 
-  const onDragEnter = e => {
-    console.log('drag enter');
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const onDragLeave = e => {
-    console.log('drag leave');
-
-    e.preventDefault();
-    e.stopPropagation();
-  };
   const onDragOver = e => {
-    console.log('drag over');
-
     e.preventDefault();
     e.stopPropagation();
   };
   const onDrop = e => {
-    console.log('drop');
-
     e.preventDefault();
     e.stopPropagation();
 
-    const fromIndex = e.dataTransfer.getData("text");
-    const toIndex = parseInt(e.target.id.replace('question-item-', ''));
+    const fromIndex = parseInt(e.dataTransfer.getData("text"));
+    const toIndex = parseInt(_getIndexFromClassName(e.target));
+
     dispatch({ type: 'REORDER', fromIndex, toIndex });
     e.dataTransfer.clearData();
   };
   const onDrag = e => {
     e.persist()
-    const index = parseInt(e.target.id.replace('question-item-', ''));
+    const index = _getIndexFromClassName(e.target);
 
     e.dataTransfer.setData("text", index);
   };
 
+  const _getIndexFromClassName = (el) => {
+    return el.id.replace('question-item-', '');
+  }
+
   return (
     <div className="survey-list"
       onDrop={e => onDrop(e)}
-      onDragOver={e => onDragOver(e)}
-      onDragEnter={e => onDragEnter(e)}
-      onDragLeave={e => onDragLeave(e)}>
-      <ol className="questions">
+      onDragOver={e => onDragOver(e)}>
+      <ul className="questions">
         {questions.map((q, i) => {
           return (
             <li key={i}
@@ -56,7 +44,7 @@ const SurveyList = ({ data, dispatch }) => {
             </li>
           )
         })}
-      </ol>
+      </ul>
     </div>
   );
 };

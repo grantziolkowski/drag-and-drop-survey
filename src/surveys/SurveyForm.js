@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import validate from './SurveyFormValidationRules';
 import useForm from '../forms/useForm';
 import './SurveyForm.css';
 
 const SurveyForm = ({ data, dispatch }) => {
-  const questionsString = JSON.stringify(data.questions);
+  useEffect(() => {
+    handleFormValuesUpdate({questions: JSON.stringify(data.questions)})
+  }, [data.questions]);
 
   const {
     values,
     handleJsonChange,
+    handleFormValuesUpdate,
     errors,
     jsonData,
-  } = useForm(onValidQuestionsUpdate, validate);
+  } = useForm(onValidQuestionsUpdate, validate, {question: []});
+
 
   function onValidQuestionsUpdate() {
-    if (jsonData && jsonData.questions.length) {
+    if (jsonData && jsonData.questions) {
       dispatch({ type: 'UPDATE_QUESTIONS', questions: jsonData.questions });
     }
   }
@@ -25,9 +29,9 @@ const SurveyForm = ({ data, dispatch }) => {
         <div className='control'>
           <textarea
               className={`textarea ${errors.questions && 'is-error'}`}
-              name='questionsString'
+              name='questions'
               onChange={handleJsonChange}
-              value={values.questionsString || questionsString }
+              value={values.questions}
               placeholder='[{ "body": "Edit here with the body of your question text", "identifier": "Any optional identifier" }]'
               required
             />
