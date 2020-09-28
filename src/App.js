@@ -6,7 +6,7 @@ import surveyReducer from './reducers/SurveyReducer';
 import './App.css';
 
 const questions = [{
-  body: 'Please update this placeholder question body',
+  body: "Please update this placeholder question body or add another question with a 'body' field.",
   identifier: 'SAMPLE-identifier'
 }];
 
