@@ -1,12 +1,18 @@
 export default function validate(values) {
+  console.log('validate ', values)
   let errors = {};
 
   try {
-    if (!values.questions) throw new Error();
+    if (!values.questionsString) throw new Error();
 
-    JSON.parse(values.questions);
+    const questions = JSON.parse(values.questionsString);
+
+    if (questions.length) {
+      const invalidQuestion = questions.find(q => !q.body);
+      if (invalidQuestion) errors.questions = 'Please fill in the body text of each question.';
+    }
   } catch (e) {
-    errors.questions = 'Please enter a valid JSON representation of your questions';
+    errors.questions = 'Please enter an array of JSON objects representing your questions';
   }
 
   return errors;

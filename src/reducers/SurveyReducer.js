@@ -1,20 +1,22 @@
-function array_move(arr, old_index, new_index) {
-  if (new_index >= arr.length) {
-      var k = new_index - arr.length + 1;
+function arrayMove(arr, oldIndex, newIndex) {
+  if (newIndex >= arr.length) {
+      var k = newIndex - arr.length + 1;
       while (k--) {
           arr.push(undefined);
       }
   }
-  arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-  return arr; // for testing
+  arr.splice(newIndex, 0, arr.splice(oldIndex, 1)[0]);
+  return arr;
 };
 
 const surveyReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_ITEM':
-      return { ...state, questions: state.questions.concat(action.question) };
+    case 'UPDATE_QUESTIONS':
+      console.log('update action', action);
+      console.log('new state', { ...state, questions: action.questions });
+      return { ...state, questions: action.questions };
     case 'REORDER':
-      return { ...state, questions: array_move(state.questions, action.payload.fromIndex, action.payload.toIndex)};
+      return { ...state, questions: arrayMove(state.questions, action.fromIndex, action.toIndex)};
     default:
       return state;
   }

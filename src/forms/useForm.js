@@ -2,31 +2,37 @@ import { useState, useEffect } from 'react';
 
 const useForm = (callback, validate) => {
   const [values, setValues] = useState({});
+  const [jsonData, setJsonData] = useState({ questions: []});
   const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
+    if (Object.keys(errors).length === 0) {
+
       callback();
     }
   }, [errors]);
 
-  const handleSubmit = (event) => {
-    if (event) event.preventDefault();
-    setErrors(validate(values));
-    setIsSubmitting(true);
-  };
 
-  const handleChange = (event) => {
+  const handleJsonChange = (event) => {
     event.persist();
-    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    const jsonKey = event.target.name.replace('String', '');
+    
+    setErrors(validate({ ...values, [event.target.name]: event.target.value }));
+    setValues(values => ({...values, [event.target.name]: event.target.value }));
+
+    if (jsonKey) {
+      try {
+        const jsonValue = JSON.parse(event.target.value);
+        setJsonData(values => ({ ...values, [jsonKey]: jsonValue }));
+      } catch (e) {}
+    }
   };
 
   return {
-    handleChange,
-    handleSubmit,
+    handleJsonChange,
     values,
     errors,
+    jsonData,
   }
 };
 

@@ -29,7 +29,7 @@ const SurveyList = ({ data, dispatch }) => {
 
     const fromIndex = e.dataTransfer.getData("text");
     const toIndex = parseInt(e.target.id.replace('question-item-', ''));
-    dispatch({ type: 'REORDER', payload: { fromIndex, toIndex } });
+    dispatch({ type: 'REORDER', fromIndex, toIndex });
     e.dataTransfer.clearData();
   };
   const onDrag = e => {
@@ -48,7 +48,7 @@ const SurveyList = ({ data, dispatch }) => {
       <ol className="questions">
         {questions.map((q, i) => {
           return (
-            <li key={q.id}
+            <li key={i}
               id={`question-item-${i}`}
               draggable="true"
               onDragStart={e => onDrag(e)}>
