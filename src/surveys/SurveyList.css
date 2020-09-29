@@ -8,6 +8,7 @@
   box-shadow: 0 0 5px #000;
   border-radius: 5px;
   margin: 12px 0;
+  text-align: left;
   padding: 15px;
   display: flex;
   min-width: 500px;
